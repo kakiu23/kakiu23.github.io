@@ -39,6 +39,31 @@
   </entry>
   
   <entry>
+    <title>IDEA最好用的热部署插件</title>
+    <link href="http://example.com/2023/09/22/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/"/>
+    <id>http://example.com/2023/09/22/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/</id>
+    <published>2023-09-22T15:36:46.000Z</published>
+    <updated>2024-07-03T15:49:17.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>Rebel 插件是目前最好用的热部署插件，它支持 IDEA Ultimate 旗舰版、Community 社区版。</p><h3 id="3-1-如何安装"><a href="#3-1-如何安装" class="headerlink" title="3.1 如何安装"></a>3.1 如何安装</h3><p>① 点击 <a href="https://plugins.jetbrains.com/plugin/4441-jrebel-and-xrebel/versions">https://plugins.jetbrains.com/plugin/4441-jrebel-and-xrebel/versions(opens new window)</a>地址，必须下载 <strong>2022.4.1</strong> 版本。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/1.png"></p><p>② 打开 [Preference -&gt; Plugins] 菜单，点击「Install Plugin from Disk…」按钮，选择刚下载的 JRebel 插件的压缩包。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/2.png"></p><p>安装完成后，需要重启 IDEA 生效。</p><p>③ 打开 [Preference -&gt; JRebel &amp; XRebel] 菜单，输入 GUID address 为 <a href="https://jrebel.qekang.com/1e67ec1b-122f-4708-87d0-c1995dc0cdaa">https://jrebel.qekang.com/1e67ec1b-122f-4708-87d0-c1995dc0cdaa</a> ，邮件随便写，完成 JRebel 的激活。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/3.png"></p><p>之后，点击「Work Offline」按钮，设置 JRebel 为离线，避免因为网络问题导致激活失效。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/4.png"></p><h3 id="3-2-如何使用"><a href="#3-2-如何使用" class="headerlink" title="3.2 如何使用"></a>3.2 如何使用</h3><p>① 点击「Debug With JRebel」按钮，使用 JRebel 启动项目。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/5.png"></p><p>② 每次修改 Java 代码后，点击左下角的「热加载」按钮，即可实现代码热加载。如下图所示：</p><p><img src="/images/IDEA%E6%9C%80%E5%A5%BD%E7%94%A8%E7%9A%84%E7%83%AD%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6/6.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Rebel 插件是目前最好用的热部署插件，它支持 IDEA Ultimate 旗舰版、Community 社区版。&lt;/p&gt;
+&lt;h3 id=&quot;3-1-如何安装&quot;&gt;&lt;a href=&quot;#3-1-如何安装&quot; class=&quot;headerlink&quot; title=&quot;3.1 如何安装&quot;&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="热部署" scheme="http://example.com/tags/%E7%83%AD%E9%83%A8%E7%BD%B2/"/>
+    
+    <category term="IDEA插件" scheme="http://example.com/tags/IDEA%E6%8F%92%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊分布式事务</title>
     <link href="http://example.com/2021/11/13/%E8%81%8A%E8%81%8A%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     <id>http://example.com/2021/11/13/%E8%81%8A%E8%81%8A%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</id>
