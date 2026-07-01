@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Codex 配置第三方中转站 API 教程 | Q鸽博客</title><meta name="description" content="Codex 配置第三方中转站 API 教程这篇文章记录一下在 macOS 上通过 Codex++ 管理工具 给 Codex 配置第三方中转站 API 的过程。 Codex++ 是 Codex App 的外部增强启动器和管理工具。它不修改 Codex App 原始安装文件，而是通过外部 launcher 启动 Codex，并使用 Chromium DevTools Protocol 注入增强脚本。这"><meta name="keywords" content="codex"><meta name="author" content="Q鸽"><meta name="copyright" content="Q鸽"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/06/30/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Codex 配置第三方中转站 API 教程"><meta property="og:url" content="http://example.com/2026/06/30/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/"><meta property="og:site_name" content="Q鸽博客"><meta property="og:description" content="Codex 配置第三方中转站 API 教程这篇文章记录一下在 macOS 上通过 Codex++ 管理工具 给 Codex 配置第三方中转站 API 的过程。 Codex++ 是 Codex App 的外部增强启动器和管理工具。它不修改 Codex App 原始安装文件，而是通过外部 launcher 启动 Codex，并使用 Chromium DevTools Protocol 注入增强脚本。这"><meta property="og:image" content="http://example.com/null"><meta property="article:published_time" content="2026-06-30T14:27:36.000Z"><meta property="article:modified_time" content="2026-07-01T01:59:06.302Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2026-07-01 09:59:06'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Q鸽博客" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">7</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">8</div></a></div></div></div><hr/></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Codex 配置第三方中转站 API 教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text">1. 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%8B%E8%BD%BD-Codex"><span class="toc-number">1.2.</span> <span class="toc-text">2. 下载 Codex++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85-Codex"><span class="toc-number">1.3.</span> <span class="toc-text">3. 安装 Codex++</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-macOS-%E6%8F%90%E7%A4%BA%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1. macOS 提示无法打开怎么办</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%88%E7%A1%AE%E8%AE%A4-Codex-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81"><span class="toc-number">1.4.</span> <span class="toc-text">4. 先确认 Codex 官方登录状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%8E%B7%E5%8F%96%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E4%BF%A1%E6%81%AF"><span class="toc-number">1.5.</span> <span class="toc-text">5. 获取第三方中转站 API 信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%89%93%E5%BC%80-Codex-%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">1.6.</span> <span class="toc-text">6. 打开 Codex++ 管理工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B7%BB%E5%8A%A0%E4%B8%AD%E8%BD%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">1.7.</span> <span class="toc-text">7. 添加中转配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%BA%94%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%B3%A8%E5%85%A5"><span class="toc-number">1.8.</span> <span class="toc-text">8. 应用中转注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%80%9A%E8%BF%87-Codex-%E5%90%AF%E5%8A%A8-Codex"><span class="toc-number">1.9.</span> <span class="toc-text">9. 通过 Codex++ 启动 Codex</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="toc-number">1.10.</span> <span class="toc-text">10. 测试是否配置成功</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%A6%82%E4%BD%95%E5%88%87%E5%9B%9E%E5%AE%98%E6%96%B9%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.11.</span> <span class="toc-text">11. 如何切回官方模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.12.</span> <span class="toc-text">12. 常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#12-1-Codex-%E8%8F%9C%E5%8D%95%E6%B2%A1%E6%9C%89%E5%87%BA%E7%8E%B0"><span class="toc-number">1.12.1.</span> <span class="toc-text">12.1. Codex++ 菜单没有出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-2-%E6%8F%90%E7%A4%BA-API-Key-%E6%97%A0%E6%95%88"><span class="toc-number">1.12.2.</span> <span class="toc-text">12.2. 提示 API Key 无效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-3-%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%E6%88%96%E4%B8%80%E7%9B%B4%E8%BD%AC%E5%9C%88"><span class="toc-number">1.12.3.</span> <span class="toc-text">12.3. 请求失败或一直转圈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-4-%E6%8F%92%E4%BB%B6%E5%B8%82%E5%9C%BA%E8%BF%98%E6%98%AF%E6%8F%90%E7%A4%BA%E9%9C%80%E8%A6%81%E7%99%BB%E5%BD%95"><span class="toc-number">1.12.4.</span> <span class="toc-text">12.4. 插件市场还是提示需要登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-5-%E5%8F%AF%E4%BB%A5%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AA%E4%B8%AD%E8%BD%AC%E7%AB%99%E5%90%97"><span class="toc-number">1.12.5.</span> <span class="toc-text">12.5. 可以配置多个中转站吗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E6%80%BB%E7%BB%93"><span class="toc-number">1.13.</span> <span class="toc-text">13. 总结</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Q鸽博客</a></span><span id="menus"><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Codex 配置第三方中转站 API 教程</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-30T14:27:36.000Z" title="发表于 2026-06-30 22:27:36">2026-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-01T01:59:06.302Z" title="更新于 2026-07-01 09:59:06">2026-07-01</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Codex-配置第三方中转站-API-教程"><a href="#Codex-配置第三方中转站-API-教程" class="headerlink" title="Codex 配置第三方中转站 API 教程"></a>Codex 配置第三方中转站 API 教程</h1><p>这篇文章记录一下在 macOS 上通过 <strong>Codex++ 管理工具</strong> 给 Codex 配置第三方中转站 API 的过程。</p>
+<p>Codex++ 是 Codex App 的外部增强启动器和管理工具。它不修改 Codex App 原始安装文件，而是通过外部 launcher 启动 Codex，并使用 Chromium DevTools Protocol 注入增强脚本。这里主要用到它的 <strong>中转注入</strong> 功能，把 Codex 的模型请求切到第三方兼容 API。</p>
+<blockquote>
+<p>本文使用的是 Mac 电脑演示，Windows 用户整体流程类似，只是安装包和部分系统提示不一样。</p>
+</blockquote>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>开始之前，先准备好下面几样东西：</p>
+<ol>
+<li>已经安装好的 Codex App。</li>
+<li>一个可以正常登录的 ChatGPT / Codex 官方账号。</li>
+<li>一个第三方中转站账号。</li>
+<li>第三方中转站提供的 API Key。</li>
+<li>第三方中转站提供的 Base URL。</li>
+<li>Codex++ 管理工具安装包。</li>
+</ol>
+<p>第三方中转站只要兼容 Codex 所需的 OpenAI API 协议即可，不一定固定为某一家。实际配置时需要重点确认两个参数：</p>
+<ul>
+<li><code>Base URL</code>：中转站的接口地址，例如 <code>https://example.com/v1</code></li>
+<li><code>API Key</code>：中转站后台生成的密钥，一般以 <code>sk-</code> 开头</li>
+</ul>
+<h2 id="2-下载-Codex"><a href="#2-下载-Codex" class="headerlink" title="2. 下载 Codex++"></a>2. 下载 Codex++</h2><p>打开 Codex++ 的 GitHub Releases 页面，下载适合自己电脑的安装包：</p>
+<ul>
+<li>Intel 芯片 Mac：下载 <code>macos-x64.dmg</code></li>
+<li>Apple Silicon 芯片 Mac：下载 <code>macos-arm64.dmg</code></li>
+</ul>
+<p>如果你不知道自己的 Mac 是 Intel 还是 Apple Silicon，可以点击左上角苹果图标，进入“关于本机”查看芯片信息。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img.png"></p>
+<h2 id="3-安装-Codex"><a href="#3-安装-Codex" class="headerlink" title="3. 安装 Codex++"></a>3. 安装 Codex++</h2><p>下载完成后，双击打开 <code>.dmg</code> 安装包，把里面的应用拖到 <code>Applications</code> 应用程序目录。</p>
+<p>安装完成后，应用程序里会出现两个入口：</p>
+<ul>
+<li><code>Codex++</code>：静默启动入口，不显示管理界面，只负责启动 Codex 并注入增强功能。</li>
+<li><code>Codex++ 管理工具</code>：控制面板，用来配置中转注入、检查状态、查看日志、管理增强功能等。</li>
+</ul>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_1.png"></p>
+<h3 id="3-1-macOS-提示无法打开怎么办"><a href="#3-1-macOS-提示无法打开怎么办" class="headerlink" title="3.1. macOS 提示无法打开怎么办"></a>3.1. macOS 提示无法打开怎么办</h3><p>如果第一次打开时提示“无法打开”“已损坏”或被 macOS 安全策略拦截，可以打开终端执行下面两条命令解除隔离标记：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo xattr -rd com.apple.quarantine /Applications/Codex++\ 管理工具.app</span><br><span class="line">sudo xattr -rd com.apple.quarantine /Applications/Codex++.app</span><br></pre></td></tr></table></figure>
+
+<p>执行完成后，重新打开 <code>Codex++ 管理工具</code>。</p>
+<h2 id="4-先确认-Codex-官方登录状态"><a href="#4-先确认-Codex-官方登录状态" class="headerlink" title="4. 先确认 Codex 官方登录状态"></a>4. 先确认 Codex 官方登录状态</h2><p>中转注入模式的逻辑是：</p>
+<ul>
+<li>官方 ChatGPT / Codex 登录态继续负责账号能力和插件入口。</li>
+<li>第三方中转站只接管模型请求使用的 Base URL、API Key 和模型名称。</li>
+</ul>
+<p>所以在配置中转站之前，建议先正常打开 Codex App，并确认自己已经登录官方账号。</p>
+<p>检查点：</p>
+<ol>
+<li>Codex 能正常打开。</li>
+<li>账号状态正常。</li>
+<li>插件入口或账号相关功能可用。</li>
+</ol>
+<h2 id="5-获取第三方中转站-API-信息"><a href="#5-获取第三方中转站-API-信息" class="headerlink" title="5. 获取第三方中转站 API 信息"></a>5. 获取第三方中转站 API 信息</h2><p>登录第三方中转站后台，找到 API Key 管理页面，新建或复制一个 API Key。</p>
+<p>同时在平台文档里找到 Base URL。常见格式类似：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://example.com/v1</span><br></pre></td></tr></table></figure>
+
+<p>有些平台会把接口地址写成 OpenAI 兼容地址、API 接入地址、Endpoint 或 Base URL，本质上都是这里要填写的接口入口。</p>
+<p>需要记录的信息：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Base URL: https://example.com/v1</span><br><span class="line">API Key: sk-xxxxxxxxxxxxxxxx</span><br><span class="line">模型名称: gpt-5.5 / gpt-5.4 / 其他平台支持的模型名</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-打开-Codex-管理工具"><a href="#6-打开-Codex-管理工具" class="headerlink" title="6. 打开 Codex++ 管理工具"></a>6. 打开 Codex++ 管理工具</h2><p>打开 <code>Codex++ 管理工具</code>，进入中转注入相关页面。</p>
+<p>这里建议先看一下管理工具里的诊断状态，确认 Codex++ 能正常识别本地 Codex 环境。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_2.png"></p>
+<h2 id="7-添加中转配置"><a href="#7-添加中转配置" class="headerlink" title="7. 添加中转配置"></a>7. 添加中转配置</h2><p>在“供应商配置”页面里添加一个新的供应商配置，然后填写：</p>
+<ul>
+<li>配置名称：自己能看懂即可，例如 <code>我的中转站</code></li>
+<li>Base URL：中转站提供的接口地址</li>
+<li>API Key：中转站生成的密钥</li>
+<li>配置模型：中转站支持的模型名</li>
+<li>接入模式：纯API</li>
+</ul>
+<p>如果页面里有协议或 Wire API 选项，优先选择 <code>responses</code> 或平台文档推荐的 Codex 兼容协议。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_3.png"> </p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_4.png"></p>
+<h2 id="8-应用中转注入"><a href="#8-应用中转注入" class="headerlink" title="8. 应用中转注入"></a>8. 应用中转注入</h2><p>配置填写完成后，选择刚刚添加的中转配置，点击应用中转注入。</p>
+<p>应用成功后，Codex++ 会把相关配置写入本机的 Codex 配置文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.codex/config.toml</span><br></pre></td></tr></table></figure>
+
+<p>写入后的配置大致类似下面这样：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model_provider</span> = <span class="string">&quot;CodexPlusPlus&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[model_providers.CodexPlusPlus]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;CodexPlusPlus&quot;</span></span><br><span class="line"><span class="attr">wire_api</span> = <span class="string">&quot;responses&quot;</span></span><br><span class="line"><span class="attr">requires_openai_auth</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">base_url</span> = <span class="string">&quot;https://example.com/v1&quot;</span></span><br><span class="line"><span class="attr">experimental_bearer_token</span> = <span class="string">&quot;sk-...&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里不用手动复制上面的配置，正常通过管理工具操作即可。贴出来只是为了方便理解它最终修改了哪里。</p>
+<h2 id="9-通过-Codex-启动-Codex"><a href="#9-通过-Codex-启动-Codex" class="headerlink" title="9. 通过 Codex++ 启动 Codex"></a>9. 通过 Codex++ 启动 Codex</h2><p>配置完成后，不要直接从原版 Codex 图标启动，而是从 <code>Codex++</code> 入口启动。</p>
+<p>原因是 Codex++ 需要在启动 Codex 的时候注入增强脚本和中转配置。如果直接打开原版 Codex，可能看不到 Codex++ 菜单，相关功能也不会生效。</p>
+<p>启动后可以检查顶部菜单栏或设置面板里是否出现 <code>Codex++</code> 相关入口。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_5.png"></p>
+<h2 id="10-测试是否配置成功"><a href="#10-测试是否配置成功" class="headerlink" title="10. 测试是否配置成功"></a>10. 测试是否配置成功</h2><p>启动 Codex 后，新建一个会话，发一条简单消息测试：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你好，简单介绍一下你现在可以帮我做什么。</span><br></pre></td></tr></table></figure>
+
+<p>如果能正常回复，说明中转站 API 已经可以工作。</p>
+<p>建议再测试一个和代码相关的问题，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用 JavaScript 写一个函数，判断字符串是否为回文。</span><br></pre></td></tr></table></figure>
+
+<p>测试时可以同时观察第三方中转站后台的调用记录或余额变化。如果中转站后台出现对应请求，基本就可以确认请求已经走第三方 API 了。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_6.png"></p>
+<p>中转站后台调用记录：</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_7.png"></p>
+<h2 id="11-如何切回官方模式"><a href="#11-如何切回官方模式" class="headerlink" title="11. 如何切回官方模式"></a>11. 如何切回官方模式</h2><p>如果后面想恢复官方 ChatGPT / Codex 登录模式，可以重新打开 <code>Codex++ 管理工具</code>，进入“供应商配置”页面，使用默认中转配置就是原来的登录模式。</p>
+<p><img src="/images/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/img_8.png"></p>
+<h2 id="12-常见问题"><a href="#12-常见问题" class="headerlink" title="12. 常见问题"></a>12. 常见问题</h2><h3 id="12-1-Codex-菜单没有出现"><a href="#12-1-Codex-菜单没有出现" class="headerlink" title="12.1. Codex++ 菜单没有出现"></a>12.1. Codex++ 菜单没有出现</h3><p>优先检查是不是从 <code>Codex++</code> 入口启动的 Codex，而不是从原版 Codex 图标启动。</p>
+<p>如果确认入口没问题，可以打开管理工具里的“诊断”或“日志”页面，看注入状态是否正常。</p>
+<h3 id="12-2-提示-API-Key-无效"><a href="#12-2-提示-API-Key-无效" class="headerlink" title="12.2. 提示 API Key 无效"></a>12.2. 提示 API Key 无效</h3><p>一般检查这几项：</p>
+<ol>
+<li>API Key 是否复制完整。</li>
+<li>API Key 前后有没有多余空格。</li>
+<li>中转站账号余额是否充足。</li>
+<li>当前模型是否在中转站支持列表里。</li>
+<li>Base URL 是否填错。</li>
+</ol>
+<h3 id="12-3-请求失败或一直转圈"><a href="#12-3-请求失败或一直转圈" class="headerlink" title="12.3. 请求失败或一直转圈"></a>12.3. 请求失败或一直转圈</h3><p>可以按下面顺序排查：</p>
+<ol>
+<li>先确认网络能访问第三方中转站。</li>
+<li>确认 Base URL 是否包含正确的 <code>/v1</code>。</li>
+<li>换一个更常见的模型名测试。</li>
+<li>打开 Codex++ 管理工具查看日志。</li>
+<li>清除 API 模式后重新配置一次。</li>
+</ol>
+<h3 id="12-4-插件市场还是提示需要登录"><a href="#12-4-插件市场还是提示需要登录" class="headerlink" title="12.4. 插件市场还是提示需要登录"></a>12.4. 插件市场还是提示需要登录</h3><p>中转注入模式下，官方登录态仍然很重要。先回到原版 Codex 或官方登录页面，确认 ChatGPT / Codex 账号已经登录成功，再回到 Codex++ 管理工具应用中转注入。</p>
+<h3 id="12-5-可以配置多个中转站吗"><a href="#12-5-可以配置多个中转站吗" class="headerlink" title="12.5. 可以配置多个中转站吗"></a>12.5. 可以配置多个中转站吗</h3><p>可以。Codex++ 支持多个中转配置，可以在管理工具里添加多个配置，然后选择当前要使用的配置进行应用。</p>
+<h2 id="13-总结"><a href="#13-总结" class="headerlink" title="13. 总结"></a>13. 总结</h2><p>整个流程可以概括为：</p>
+<ol>
+<li>安装 Codex++。</li>
+<li>确认 Codex 官方账号已经登录。</li>
+<li>在第三方中转站获取 Base URL 和 API Key。</li>
+<li>在 Codex++ 管理工具里添加中转配置。</li>
+<li>应用中转注入。</li>
+<li>通过 <code>Codex++</code> 入口启动 Codex。</li>
+<li>发消息测试是否走第三方 API。</li>
+</ol>
+<p>配置成功后，Codex 的账号能力仍然由官方登录态负责，模型请求则走第三方中转站。这样既保留 Codex 原有体验，也可以灵活使用不同中转站提供的模型和价格方案。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Q鸽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/06/30/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/">http://example.com/2026/06/30/Codex-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E8%BD%AC%E7%AB%99-API-%E6%95%99%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Q鸽博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/codex/">codex</a></div><div class="post_share"><div class="social-share" data-image="/null" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/04/28/Windows%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85Oracle-GraalVM%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"><img class="next-cover" src="/null" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Windows系统安装Oracle GraalVM保姆级教程</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Q鸽</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
