@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2026-07-01T01:59:06.302Z</updated>
+  <updated>2026-07-15T10:09:30.165Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Claude Code 配置第三方 API 教程</title>
+    <link href="http://example.com/2026/07/15/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/"/>
+    <id>http://example.com/2026/07/15/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/</id>
+    <published>2026-07-15T01:00:00.000Z</published>
+    <updated>2026-07-15T10:09:30.165Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Claude-Code-配置第三方-API-教程"><a href="#Claude-Code-配置第三方-API-教程" class="headerlink" title="Claude Code 配置第三方 API 教程"></a>Claude Code 配置第三方 API 教程</h1><p>这篇文章记录一下如何使用 <strong>CC Switch</strong> 给 <strong>Claude Code CLI</strong> 配置第三方 API。</p><p>CC Switch 是一个跨平台的 AI 编程 CLI 统一管理工具，支持 Claude Code、Codex、Gemini CLI、OpenCode、OpenClaw 和 Hermes Agent。它的核心思路是把不同工具的 provider 配置统一管理起来，切换时不需要手动改一堆 JSON、TOML 或 <code>.env</code> 文件。</p><p>官方文档链接：<a href="https://ccswitch.io/zh/docs?section=getting-started">https://ccswitch.io/zh/docs?section=getting-started</a></p><h2 id="1-先准备好这些东西"><a href="#1-先准备好这些东西" class="headerlink" title="1. 先准备好这些东西"></a>1. 先准备好这些东西</h2><p>开始之前，先准备好下面几项：</p><ol><li>已经安装好的 Claude Code CLI。</li><li>一个可用的第三方 API 账号。</li><li>第三方服务商提供的 <code>API Key</code>。</li><li>第三方服务商提供的 <code>Base URL</code> 或 <code>Endpoint</code>。</li><li>安装好的 CC Switch。</li></ol><p>一般来说，第三方 API 至少会提供这三个关键信息：</p><ul><li><code>Base URL</code>：接口地址，例如 <code>https://example.com/v1</code></li><li><code>API Key</code>：访问密钥</li><li><code>Model</code>：你要在 Claude Code 里使用的模型名</li></ul><p>如果服务商已经提供了适配 Claude Code 的预设配置，直接用预设会最省事。如果没有，也可以手动创建自定义 provider。</p><h2 id="2-安装-CC-Switch"><a href="#2-安装-CC-Switch" class="headerlink" title="2. 安装 CC Switch"></a>2. 安装 CC Switch</h2><p>CC Switch 官方支持 Windows、macOS 和 Linux。</p><p>macOS 推荐直接用 Homebrew：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask cc-switch</span><br></pre></td></tr></table></figure><p>如果后面要升级：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade --cask cc-switch</span><br></pre></td></tr></table></figure><p>如果你习惯手动安装，也可以去官方 Releases 页面下载 <code>dmg</code> 安装包。</p><p>Windows 和 Linux 用户也可以直接从 Releases 页面下载对应安装包，官方文档里已经把各平台安装方式列得比较清楚。</p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img.png"></p><h2 id="3-新增第三方-Provider"><a href="#3-新增第三方-Provider" class="headerlink" title="3. 新增第三方 Provider"></a>3. 新增第三方 Provider</h2><p>打开 CC Switch 后，点击右上角的加号按钮添加一个 provider。</p><p>这里有两种方式：</p><ol><li>直接选择第三方服务商预设。</li><li>新建一个自定义配置。</li></ol><p>如果服务商在预设列表里，优先选预设。这样可以少填很多字段，也更不容易出错。</p><p>如果没有预设，就手动填下面这些内容：</p><ul><li>Provider 名称：自己能看懂就行，例如 <code>我的第三方 Claude</code></li><li><code>Base URL</code>：服务商提供的接口地址</li><li><code>API Key</code>：服务商生成的密钥</li><li><code>Model</code>：要用的模型名</li></ul><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_1.png"></p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_2.png"></p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_3.png"></p><h2 id="4-启用这个-Provider"><a href="#4-启用这个-Provider" class="headerlink" title="4. 启用这个 Provider"></a>4. 启用这个 Provider</h2><p>配置填好后，选中刚才创建的 provider，然后点击 <code>Enable</code>。</p><p>在系统托盘菜单里也可以直接点 provider 名称切换，官方文档里提到这是即时生效的方式。</p><p>对于 Claude Code，CC Switch 官方说明里写得很明确：切换 provider <strong>不需要重启终端或 CLI</strong>，这点比很多其他工具方便。</p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_4.png"></p><h2 id="5-打开-Claude-Code-测试"><a href="#5-打开-Claude-Code-测试" class="headerlink" title="5. 打开 Claude Code 测试"></a>5. 打开 Claude Code 测试</h2><p>启用成功后，直接打开 Claude Code CLI，发一条简单消息测试：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你好，帮我用一句话解释一下你当前能做什么。</span><br></pre></td></tr></table></figure><p>如果能正常回复，说明第三方 API 已经接通了。</p><p>你也可以再测试一个代码问题：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用Java语言写一个快速的排序算法。</span><br></pre></td></tr></table></figure><p>如果你想确认是否真的走了第三方接口，可以同时去服务商后台看请求记录、调用量或余额变化。</p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_5.png"></p><h2 id="6-如何切回官方登录"><a href="#6-如何切回官方登录" class="headerlink" title="6. 如何切回官方登录"></a>6. 如何切回官方登录</h2><p>如果后面想恢复 Claude 官方登录模式，也很简单：</p><ol><li>在 CC Switch 里再添加一个 <code>Official Login</code> 预设。</li><li>切换到这个预设。</li><li>重启 Claude Code CLI。</li><li>按 Claude Code 自己的登录 / OAuth 流程重新登录即可。</li></ol><p>官方文档里提到，切回官方模式后，可以在官方 provider 和第三方 provider 之间自由切换。</p><p><img src="/images/Claude-Code-%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%B8%89%E6%96%B9API%E6%95%99%E7%A8%8B/img_6.png"></p><h2 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7. 常见问题"></a>7. 常见问题</h2><h3 id="7-1-切换后没生效"><a href="#7-1-切换后没生效" class="headerlink" title="7.1. 切换后没生效"></a>7.1. 切换后没生效</h3><p>先检查这几项：</p><ol><li>是否真的点了 <code>Enable</code>。</li><li>选中的 provider 是否就是刚才配置的那个。</li><li><code>Base URL</code> 是否写对，尤其是有没有漏掉 <code>/v1</code>。</li><li><code>API Key</code> 前后有没有多余空格。</li><li>第三方服务商账号是否还有余额。</li></ol><h3 id="7-2-Claude-Code-需要重启吗"><a href="#7-2-Claude-Code-需要重启吗" class="headerlink" title="7.2. Claude Code 需要重启吗"></a>7.2. Claude Code 需要重启吗</h3><p>官方文档写的是：Claude Code 支持 provider 数据的热切换，一般不需要重启。</p><p>如果你发现没变更，优先重新打开一次 Claude Code，再看是否已经切到新 provider。</p><h3 id="7-3-可以同时管理多个第三方-API-吗"><a href="#7-3-可以同时管理多个第三方-API-吗" class="headerlink" title="7.3. 可以同时管理多个第三方 API 吗"></a>7.3. 可以同时管理多个第三方 API 吗</h3><p>可以。</p><p>CC Switch 本身就是 provider 管理器，你可以为不同服务商分别建配置，然后按需切换。官方还提供了 <code>Shared Config Snippet</code> 之类的能力，方便把通用参数在不同 provider 之间复用。</p><h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8. 总结"></a>8. 总结</h2><p>整个流程其实很简单：</p><ol><li>安装 CC Switch。</li><li>准备好第三方 API 的 <code>Base URL</code>、<code>API Key</code> 和模型名。</li><li>在 CC Switch 里新增 provider。</li><li>启用这个 provider。</li><li>直接打开 Claude Code 测试。</li></ol><p>如果你只是想让 Claude Code CLI 快速切到第三方 API，CC Switch 的优势就是配置集中、切换快，而且 Claude Code 还支持热切换，不用反复重启终端。</p><p>官方文档：</p><ul><li><a href="https://ccswitch.io/zh/docs?section=getting-started">https://ccswitch.io/zh/docs?section=getting-started</a></li><li><a href="https://github.com/farion1231/cc-switch">https://github.com/farion1231/cc-switch</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Claude-Code-配置第三方-API-教程&quot;&gt;&lt;a href=&quot;#Claude-Code-配置第三方-API-教程&quot; class=&quot;headerlink&quot; title=&quot;Claude Code 配置第三方 API 教程&quot;&gt;&lt;/a&gt;Claude Code 配置</summary>
+      
+    
+    
+    
+    
+    <category term="Claude Code" scheme="http://example.com/tags/Claude-Code/"/>
+    
+    <category term="CC Switch" scheme="http://example.com/tags/CC-Switch/"/>
+    
+  </entry>
   
   <entry>
     <title>Codex 配置第三方中转站 API 教程</title>
